@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 //components
 import Todo from "./Todo";
+import AddTodo from '../components/AddTodo'
 
 const data = [
   {
@@ -69,6 +70,7 @@ export default function TodoList() {
         </li>
       </ul>
       <h2>Todo List</h2>
+      <AddTodo />
 
       {/* <AddFriend setTodoList={setTodoList} /> */}
       <div className="wrap-list">
