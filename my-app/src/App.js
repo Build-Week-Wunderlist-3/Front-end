@@ -8,6 +8,7 @@ import TodoList from "./components/TodoList";
 import Home from "./components/Home";
 import UpdateTodo from "./components/UpdateTodo";
 
+
 function App() {
   return (
     <Router>
@@ -19,6 +20,7 @@ function App() {
           <Route path="/signup" component={SignUp} />
           <Route path="/updatetodo" component={UpdateTodo} />
           <Route path="/todolist" component={TodoList} /> */}
+
         </Switch>
       </div>
       ;
