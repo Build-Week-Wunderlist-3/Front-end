@@ -1,81 +1,60 @@
 // dependency imports
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import { axiosWithAuth } from "../utils/axiosWithAuth";
 
-import { useHistory } from 'react-router-dom';
-
-import axios from 'axios';
-
-
-
-const initialTodo = {
-    todo: '',
-
-}
-
+const initialTask = {
+  task: "",
+  description: "",
+  due_date: "",
+  completed: false,
+};
 
 export default function AddTodo(props) {
+  const { push } = useHistory();
 
-    const { push } = useHistory()
+  const [task, setTask] = useState(initialTask);
+  //const [formDisabled, setFormDisabled] = useState(true)
 
+  const handleChanges = (e) => {
+    const value = e.target.value;
+    setTask({
+      ...task,
+      [e.target.name]: value,
+    });
+  };
 
+  const newTodo = (e) => {
+    e.preventDefault();
 
-    const [todo, setTodo] = useState(initialTodo)
-    //const [formDisabled, setFormDisabled] = useState(true)
+    axiosWithAuth()
+      .post("api/tasks", task)
+      .then((res) => {
+        console.log(res);
+        props.setTodoList(res.data.newTask.task);
+        setTask(initialTask);
+      })
+      .catch((err) => {
+        console.log("ERROR ADDTODO:", err);
+      });
+  };
 
-    const handleChanges = e => {
+  return (
+    <div>
+      <h2>Add New To-do</h2>
+      <form onSubmit={newTodo}>
+        <label>
+          <input
+            type="text"
+            name="task"
+            placeholder="Enter a To-Do..."
+            onChange={handleChanges}
+            value={task.task}
+          />
+        </label>
 
-
-        const value = e.target.value;
-
-        setTodo({
-            ...todo,
-            [e.target.name]: value
-        });
-
-    };
-
-
-    const newTodo = e => {
-        e.preventDefault();
-
-        axios
-            .post('https://bw-wunderlist-3.herokuapp.com/api/tasks', todo)
-            .then(res => {
-
-                console.log(res)
-                setTodo(todo.todo)
-
-
-            })
-            .catch(err => {
-                console.log(err)
-            })
-    }
-
-
-
-    return (
-        <div>
-            <h2>Add New To-do</h2>
-            <form onSubmit={newTodo}>
-
-
-                <label>
-                    {/* Add new Task here: &nbsp; */}
-
-                    <input
-                        type="text"
-                        name='todo'
-                        placeholder='Enter a To-Do...'
-                        onChange={handleChanges}
-                        value={todo.todo}
-                    />
-                </label>
-
-                <button>+ Add</button>
-            </form>
-
-        </div>
-    )
-
+        <button>+ Add</button>
+      </form>
+    </div>
+  );
 }
