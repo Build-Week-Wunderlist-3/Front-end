@@ -61,6 +61,11 @@ a {
   color: white;
 }
 
-.update-page {
-  margin-bottom: 30px;
+
+/*COMPLETED ITEMS */
+.completed {
+
+  text-decoration: line-through;
+
 }
+
