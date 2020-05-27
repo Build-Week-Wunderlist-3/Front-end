@@ -1,40 +1,16 @@
 import React, { useState, useEffect } from "react";
 // import {axiosWithAuth} from "../utils/axiosWithAuth"
 import { Link } from "react-router-dom";
-import axios from "axios";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 
 //components
 import Todo from "./Todo";
 import AddTodo from "../components/AddTodo";
 
-const data = [
-  {
-    task: "Fold the laundry",
-    id: 1,
-    completed: false,
-  },
-  {
-    task: "Walk the dogs",
-    id: 2,
-    completed: false,
-  },
-  {
-    task: "Cook the dinner",
-    id: 3,
-    completed: false,
-  },
-];
-
 export default function TodoList() {
-  const [todoList, setTodoList] = useState(data);
-
-
-
-
+  const [todoList, setTodoList] = useState([]);
 
   //get the data from the API
-
   useEffect(() => {
     axiosWithAuth()
       .get("/api/tasks")
@@ -61,24 +37,7 @@ export default function TodoList() {
     setTodoList(newTodo);
   };
 
-  //Delete the Todo
-  // const deleteTodo = (id) => {
-  //   axiosWithAuth()
-  //     .delete(`/api/tasks/${id}`)
-  //     .then((res) => {
-  //       console.log("DELETE-RES:", res);
-  //       setFriendList(res.data);
-  //     })
-  //     .catch((err) => console.log("ERROR- DELETE:", err));
-  // };
   console.log(todoList);
-
-  const clearCompleted = (e) => {
-    e.preventDefault();
-    const deleteAll = data.filter((item) => !item.completed);
-    setTodoList(deleteAll);
-    console.log("DELETE ALL", deleteAll);
-  };
 
   return (
     <div>
@@ -100,9 +59,7 @@ export default function TodoList() {
         } > Clear Completed </button>
       // ))} */}
 
-      <button onClick={clearCompleted}>Clear Completed</button>
-
-      {/* <AddFriend setTodoList={setTodoList} /> */}
+      {/* <button onClick={clearCompleted}>Clear Completed</button> */}
 
       <div className="wrap-list">
         {todoList &&

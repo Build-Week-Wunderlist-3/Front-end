@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 import { useHistory } from "react-router-dom";
 
-
 const StyledContainer = styled.div`
   border: 1px solid rgb(210, 210, 210);
   box-shadow: 0px 1px 6px -2px rgb(128, 127, 127);
@@ -89,16 +88,14 @@ function SignUp() {
     e.preventDefault();
 
     axiosWithAuth()
-      .post('api/register', formValues)
-      .then(res => {
-        console.log(res)
-        localStorage.setItem('token', res.data.payload);
-        push('/login');
+      .post("api/register", formValues)
+      .then((res) => {
+        console.log(res);
+        localStorage.setItem("token", res.data.payload);
+        push("/login");
       })
-      .catch(err => console.log(err))
+      .catch((err) => console.log(err));
   };
-
-
 
   useEffect(() => {
     signUpFormSchema.isValid(formValues).then((valid) => {
@@ -142,19 +139,19 @@ function SignUp() {
               name="password"
               type="password"
             />
-            <input
+            {/* <input
               value={formValues.passwordConfirmation}
               onChange={onInputChange}
               placeholder="Confirm Password"
               name="passwordConfirmation"
               type="password"
-            />
+            /> */}
           </div>
           <div className="already">
             <p>Already have an account?</p>
             <Link className="signup-link" to="/login">
               Log In
-          </Link>
+            </Link>
           </div>
         </div>
         <div className="form-group submit">
@@ -163,9 +160,7 @@ function SignUp() {
             <div>{formErrors.password}</div>
             <div>{formErrors.passwordConfirmation}</div>
           </div>
-          <button disabled={disabledBtn} >
-            submit
-        </button>
+          <button disabled={disabledBtn}>submit</button>
         </div>
       </StyledContainer>
     </form>
