@@ -5,7 +5,7 @@ import axios from 'axios'
 
 //components
 import Todo from "./Todo";
-import AddTodo from '../components/AddTodo'
+import AddTodo from "../components/AddTodo";
 
 const data = [
   {
@@ -28,6 +28,8 @@ const data = [
 export default function TodoList() {
   const [todoList, setTodoList] = useState(data);
 
+
+=======
   useEffect(() => {
     axios
       .get("https://bw-wunderlist-3.herokuapp.com/api/tasks")
@@ -119,9 +121,11 @@ export default function TodoList() {
 
 
       {/* <AddFriend setTodoList={setTodoList} /> */}
+
       < div className="wrap-list" >
         {todoList && todoList.map((item) => (
           <Todo item={item} key={item.id} toggleItem={toggleItem} />
+
         ))}
       </div>
     </div >

@@ -5,6 +5,8 @@ import '../App.css'
 export default function Todo({ item, toggleItem }) {
   const { push } = useHistory();
   return (
+
+
     <div>
       {/* <h4>{item.task}</h4> */}
 
@@ -21,6 +23,7 @@ export default function Todo({ item, toggleItem }) {
           onClick={() => push(`/updatetodo/${item.id}`)}
         >
           Edit
+
       </button>
 
 

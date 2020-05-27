@@ -3,9 +3,6 @@ import { useHistory, useParams } from "react-router-dom";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 import { Link } from "react-router-dom";
 
-
-
-
 const initialState = {
   name: "",
 };
@@ -39,7 +36,7 @@ export default function UpdateTodo() {
   //   };
 
   return (
-    <div>
+    <div className="update-page">
       <ul>
         <li>
           <Link to="/">Log Out</Link>
