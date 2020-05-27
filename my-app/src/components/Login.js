@@ -3,6 +3,8 @@ import loginFormSchema from "../validation/loginFormSchema";
 import * as yup from "yup";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { axiosWithAuth } from "../utils/axiosWithAuth";
+import { useHistory } from "react-router-dom";
 
 const StyledContainer = styled.div`
     border: 1px solid rgb(210, 210, 210);
@@ -77,10 +79,19 @@ function Login() {
     });
   };
 
+  const { push } = useHistory();
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    setFormValues(initialFormValues);
+    axiosWithAuth()
+      .post("api/login", formValues)
+      .then((res) => {
+        console.log(res);
+        localStorage.setItem("token", JSON.stringify(res.data.token));
+        push("/todolist");
+      })
+      .catch((err) => console.log(err));
   };
 
   useEffect(() => {

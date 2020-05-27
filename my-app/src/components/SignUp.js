@@ -4,6 +4,7 @@ import * as yup from "yup";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
+import { useHistory } from "react-router-dom";
 
 const StyledContainer = styled.div`
   border: 1px solid rgb(210, 210, 210);
@@ -82,15 +83,19 @@ function SignUp() {
     });
   };
 
+  const { push } = useHistory();
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    setFormValues(...formValues);
+
     axiosWithAuth()
-      .post("/api/register", formValues)
+      .post("api/register", formValues)
       .then((res) => {
-        console.log("SIGNUP- RES:", res);
+        console.log(res);
+        localStorage.setItem("token", res.data.payload);
+        push("/login");
       })
-      .catch((err) => console.log("SIGNUP ERROR:", err));
+      .catch((err) => console.log(err));
   };
 
   useEffect(() => {
@@ -98,6 +103,7 @@ function SignUp() {
       setDisabledBtn(!valid);
     });
   }, [formValues]);
+
 
     return (
         <form onSubmit={handleSubmit}>
@@ -150,6 +156,7 @@ function SignUp() {
                 </div>
             </StyledContainer>
         </form>
+
   );
 }
 
