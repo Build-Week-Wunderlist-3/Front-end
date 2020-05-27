@@ -7,21 +7,34 @@ import { axiosWithAuth } from "../utils/axiosWithAuth";
 import { useHistory } from "react-router-dom";
 
 const StyledContainer = styled.div`
-  border: 1px solid rgb(210, 210, 210);
-  box-shadow: 0px 1px 6px -2px rgb(128, 127, 127);
-  border-radius: 8px;
-  margin: 16px auto;
-  padding: 16px 8px 12px 16px;
-  width: 20%;
+    border: 1px solid rgb(210, 210, 210);
+    box-shadow: 0px 1px 6px -2px rgb(128, 127, 127);
+    border-radius: 8px;
+    margin: 4% auto;
+    /* padding: 16px 8px 12px 16px; */
+    padding: 2% 1% 2% 1%; 
 
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+    width: 20%;
+    min-width: 200px; 
 
-  div.inputs {
     display: flex;
     flex-direction: column;
-  }
+    justify-content: space-between;
+
+    div.inputs {
+        display: flex;
+        flex-direction: column;
+    }
+    div.extraText {
+        font-size: 12px;
+        margin: 6% 0 4% 0;
+        display: flex;
+        justify-content: center; 
+        flex-wrap: wrap; 
+    }
+    div.extraText p {
+        margin: auto 0;
+    }
 `;
 
 const initialFormValues = {
@@ -87,51 +100,50 @@ function Login() {
     });
   }, [formValues]);
 
-  return (
-    <form onSubmit={handleSubmit}>
-      <StyledContainer>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/signup">Sign Up</Link>
-          </li>
-        </ul>
-        <div className="form-group inputs">
-          <h4>Login</h4>
-          <div>
-            <input
-              value={formValues.email}
-              onChange={onInputChange}
-              placeholder="Email"
-              name="email"
-              type="email"
-            />
-            <input
-              value={formValues.password}
-              onChange={onInputChange}
-              placeholder="Password"
-              name="password"
-              type="password"
-            />
-          </div>
-        </div>
-        <div className="form-group submit">
-          <div className="errors">
-            <div>{formErrors.email}</div>
-            <div>{formErrors.password}</div>
-          </div>
-          <button disabled={disabledBtn} onSubmit={handleSubmit}>
-            submit
-          </button>
-          Still don't have an account?
-          <Link className="signup-link" to="/signup">
-            Sign Up
-          </Link>
-        </div>
-      </StyledContainer>
-    </form>
+    return (
+        <form onSubmit={handleSubmit}>
+            <ul>
+                <li><Link to="/">Home</Link></li>
+                <li><Link to="/signup">Sign Up</Link></li>
+            </ul>
+            <StyledContainer>
+                <div className="form-group inputs">
+                    <h4>Login</h4>
+                    <div>
+                        <input
+                            value={formValues.email}
+                            onChange={onInputChange}
+                            placeholder="Email"
+                            name="email"
+                            type="email"
+                        />
+                        <input
+                            value={formValues.password}
+                            onChange={onInputChange}
+                            placeholder="Password"
+                            name="password"
+                            type="password"
+                        />
+                    </div>
+                </div>
+                <div className="form-group submit">
+                    <div className="extraText">
+                        <p>Need an account?</p>
+                        <Link className="extraText-link" to="/signup">
+                            Sign Up
+                        </Link>
+                    </div>
+                    <button disabled={disabledBtn}>
+                        Submit
+                    </button>
+                    <div className="errors">
+                        <div>{formErrors.email}</div>
+                        <div>{formErrors.password}</div>
+                    </div>
+                </div>
+            </StyledContainer>
+        </form>
+    
   );
 }
 

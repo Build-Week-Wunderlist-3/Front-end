@@ -1,6 +1,7 @@
 import * as yup from "yup";
 
 const signUpFormSchema = yup.object().shape({
+
   email: yup
     .string()
     .email("must be a valid email address")
@@ -14,5 +15,6 @@ const signUpFormSchema = yup.object().shape({
   //     .required()
   //     .oneOf([yup.ref('password'), null], 'Passwords must match')
 });
+
 
 export default signUpFormSchema;
