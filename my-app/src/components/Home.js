@@ -9,7 +9,7 @@ export default function Home() {
           <Link to="/todolist">Todo List</Link>
         </li>
       </ul>
-      <h3>Home Page</h3>
+      <h3>Welcome to your Todo List!</h3>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  font-family: "Poppins", sans-serif;
 }
 
 .App-logo {
@@ -58,4 +59,8 @@ a {
   text-decoration: none;
   padding: 6px;
   color: white;
+}
+
+.update-page {
+  margin-bottom: 30px;
 }

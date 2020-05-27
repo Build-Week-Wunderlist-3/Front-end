@@ -8,12 +8,10 @@ import TodoList from "./components/TodoList";
 import Home from "./components/Home";
 import UpdateTodo from "./components/UpdateTodo";
 
-
 function App() {
   return (
     <Router>
       <div className="App">
-
         {/* <Switch> */}
         <Route exact path="/" component={Home} />
         {/* <Route path="/login" compoennt={Login} />
@@ -21,9 +19,7 @@ function App() {
         <Route path="/updatetodo" component={UpdateTodo} />
         <Route path="/todolist" component={TodoList} />
         {/* </Switch> */}
-
       </div>
-      ;
     </Router>
   );
 }

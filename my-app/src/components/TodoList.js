@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 //components
 import Todo from "./Todo";
-import AddTodo from '../components/AddTodo'
+import AddTodo from "../components/AddTodo";
 
 const data = [
   {
@@ -37,19 +37,21 @@ export default function TodoList() {
   //     .catch((err) => console.log("ERROR TodoList", err));
   // }, []);
 
-  //   const toggleTodo = (id) => {
-  //     setTodoList(
-  //       data.map((item) => {
-  //         if (item.id === id) {
-  //           return {
-  //             ...item,
-  //             completed: !item.completed,
-  //           };
-  //         }
-  //         return item;
-  //       })
-  //     );
-  //   };
+  const toggleTodo = (id) => {
+    setTodoList(
+      data.map((item) => {
+        if (item.id === id) {
+          return {
+            ...item,
+            completed: !item.completed,
+          };
+        }
+        return {
+          ...item,
+        };
+      })
+    );
+  };
 
   //   const deleteTodo= (id) => {
   //     axiosWithAuth()
@@ -75,7 +77,7 @@ export default function TodoList() {
       {/* <AddFriend setTodoList={setTodoList} /> */}
       <div className="wrap-list">
         {todoList.map((item) => (
-          <Todo item={item} key={item.id} />
+          <Todo item={item} key={item.id} toggleTodo={toggleTodo} />
         ))}
       </div>
     </div>
