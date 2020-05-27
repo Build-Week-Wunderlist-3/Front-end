@@ -4,6 +4,8 @@ import * as yup from "yup";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
+import { useHistory } from "react-router-dom";
+
 
 const StyledContainer = styled.div`
   border: 1px solid rgb(210, 210, 210);
@@ -81,16 +83,22 @@ function SignUp() {
     });
   };
 
+  const { push } = useHistory();
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    setFormValues(...formValues);
+
     axiosWithAuth()
-      .post("/api/register", formValues)
-      .then((res) => {
-        console.log("SIGNUP- RES:", res);
+      .post('api/register', formValues)
+      .then(res => {
+        console.log(res)
+        localStorage.setItem('token', res.data.payload);
+        push('/login');
       })
-      .catch((err) => console.log("SIGNUP ERROR:", err));
+      .catch(err => console.log(err))
   };
+
+
 
   useEffect(() => {
     signUpFormSchema.isValid(formValues).then((valid) => {
@@ -99,26 +107,27 @@ function SignUp() {
   }, [formValues]);
 
   return (
-    <StyledContainer>
-      <ul>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        <li>
-          <Link to="/login">Login</Link>
-        </li>
-      </ul>
-      <div className="form-group inputs">
-        <h4>Sign Up</h4>
-        <div>
-          <input
-            value={formValues.email}
-            onChange={onInputChange}
-            placeholder="Email"
-            name="email"
-            type="email"
-          />
-          {/* <label>Username:
+    <form onSubmit={handleSubmit}>
+      <StyledContainer>
+        <ul>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/login">Login</Link>
+          </li>
+        </ul>
+        <div className="form-group inputs">
+          <h4>Sign Up</h4>
+          <div>
+            <input
+              value={formValues.email}
+              onChange={onInputChange}
+              placeholder="Email"
+              name="email"
+              type="email"
+            />
+            {/* <label>Username:
                     <input
                         value={values.username}
                         onChange={onInputChange}
@@ -126,39 +135,40 @@ function SignUp() {
                         type='text'
                     />
                 </label> */}
-          <input
-            value={formValues.password}
-            onChange={onInputChange}
-            placeholder="Password"
-            name="password"
-            type="password"
-          />
-          <input
-            value={formValues.passwordConfirmation}
-            onChange={onInputChange}
-            placeholder="Confirm Password"
-            name="passwordConfirmation"
-            type="password"
-          />
-        </div>
-        <div className="already">
-          <p>Already have an account?</p>
-          <Link className="signup-link" to="/login">
-            Log In
+            <input
+              value={formValues.password}
+              onChange={onInputChange}
+              placeholder="Password"
+              name="password"
+              type="password"
+            />
+            <input
+              value={formValues.passwordConfirmation}
+              onChange={onInputChange}
+              placeholder="Confirm Password"
+              name="passwordConfirmation"
+              type="password"
+            />
+          </div>
+          <div className="already">
+            <p>Already have an account?</p>
+            <Link className="signup-link" to="/login">
+              Log In
           </Link>
+          </div>
         </div>
-      </div>
-      <div className="form-group submit">
-        <div className="errors">
-          <div>{formErrors.email}</div>
-          <div>{formErrors.password}</div>
-          <div>{formErrors.passwordConfirmation}</div>
-        </div>
-        <button disabled={disabledBtn} onSubmit={handleSubmit}>
-          submit
+        <div className="form-group submit">
+          <div className="errors">
+            <div>{formErrors.email}</div>
+            <div>{formErrors.password}</div>
+            <div>{formErrors.passwordConfirmation}</div>
+          </div>
+          <button disabled={disabledBtn} >
+            submit
         </button>
-      </div>
-    </StyledContainer>
+        </div>
+      </StyledContainer>
+    </form>
   );
 }
 
