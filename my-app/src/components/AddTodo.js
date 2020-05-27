@@ -39,7 +39,7 @@ export default function AddTodo(props) {
         e.preventDefault();
 
         axios
-            .post('/api/todo', todo)
+            .post('https://bw-wunderlist-3.herokuapp.com/api/tasks', todo)
             .then(res => {
 
                 console.log(res)
