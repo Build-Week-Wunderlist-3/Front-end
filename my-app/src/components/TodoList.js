@@ -21,21 +21,21 @@ export default function TodoList() {
       .catch((err) => console.log("ERROR TodoList", err));
   }, []);
 
-  //Toggle class name "completed" in the Todo
-  // const toggleItem = (id) => {
-  //   const newTodo = todoList.map((item) => {
-  //     if (item.id === id) {
-  //       return {
-  //         ...item,
-  //         completed: !item.completed,
-  //       };
-  //     } else {
-  //       return item;
-  //     }
-  //   });
+  // Toggle class name "completed" in the Todo
+  const toggleItem = (id) => {
+    const newTodo = todoList.map((item) => {
+      if (item.id === id) {
+        return {
+          ...item,
+          completed: !item.completed,
+        };
+      } else {
+        return item;
+      }
+    });
 
-  //   setTodoList(newTodo);
-  // };
+    setTodoList(newTodo);
+  };
 
   console.log(todoList);
 
@@ -51,7 +51,9 @@ export default function TodoList() {
 
       <div className="wrap-list">
         {todoList.length > 0 &&
-          todoList.map((item) => <Todo item={item} key={item.id} />)}
+          todoList.map((item) => (
+            <Todo item={item} key={item.id} toggleItem={toggleItem} />
+          ))}
       </div>
     </div>
   );
