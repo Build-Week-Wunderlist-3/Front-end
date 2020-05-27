@@ -29,7 +29,12 @@ const data = [
 export default function TodoList() {
   const [todoList, setTodoList] = useState(data);
 
+
+
+
+
   //get the data from the API
+
   useEffect(() => {
     axiosWithAuth()
       .get("/api/tasks")
