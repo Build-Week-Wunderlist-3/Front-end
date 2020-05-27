@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 // import {axiosWithAuth} from "../utils/axiosWithAuth"
 import { Link } from "react-router-dom";
+import axios from 'axios'
 
 //components
 import Todo from "./Todo";
@@ -9,17 +10,17 @@ import AddTodo from '../components/AddTodo'
 const data = [
   {
     task: "Fold the laundry",
-    id: 123,
+    id: 1,
     completed: false,
   },
   {
     task: "Walk the dogs",
-    id: 1234,
+    id: 2,
     completed: false,
   },
   {
     task: "Cook the dinner",
-    id: 12345,
+    id: 3,
     completed: false,
   },
 ];
@@ -27,29 +28,16 @@ const data = [
 export default function TodoList() {
   const [todoList, setTodoList] = useState(data);
 
-  // useEffect(() => {
-  //   axiosWithAuth()
-  //     .get("API GOES HERE")
-  //     .then((res) => {
-  //       console.log("TodoList -res.data:", res.data);
-  //       setTodoList(res.data);
-  //     })
-  //     .catch((err) => console.log("ERROR TodoList", err));
-  // }, []);
+  useEffect(() => {
+    axios
+      .get("https://bw-wunderlist-3.herokuapp.com/api/tasks")
+      .then((res) => {
+        console.log("TodoList -res.data:", res.data);
+        setTodoList(res.data);
+      })
+      .catch((err) => console.log("ERROR TodoList", err));
+  }, []);
 
-  //   const toggleTodo = (id) => {
-  //     setTodoList(
-  //       data.map((item) => {
-  //         if (item.id === id) {
-  //           return {
-  //             ...item,
-  //             completed: !item.completed,
-  //           };
-  //         }
-  //         return item;
-  //       })
-  //     );
-  //   };
 
   //   const deleteTodo= (id) => {
   //     axiosWithAuth()
@@ -62,6 +50,51 @@ export default function TodoList() {
   //       .catch((err) => console.log("ERROR- DELETE:", err));
   //   };
 
+
+  const toggleItem = id => {
+
+    const newTodo = todoList.map(item => {
+      if (item.id === id) {
+        return {
+          ...item,
+          completed: !item.completed
+        };
+      } else {
+        return item;
+      }
+
+    })
+
+    setTodoList(newTodo)
+
+  }
+
+  const deleteTodo = todo => {
+    // make a delete request to delete this color
+
+    axios
+      .delete(`https://bw-wunderlist-3.herokuapp.com/api/tasks/${todo.id}`)
+      .then((res) => {
+        console.log(res.data)
+
+        axios
+          .get(`https://bw-wunderlist-3.herokuapp.com/api/tasks/`)
+          .then(res => {
+            console.log(res.data)
+            setTodoList(res.data)
+
+
+          })
+
+
+      })
+
+  };
+
+
+  console.log(todoList)
+
+
   return (
     <div>
       <ul>
@@ -72,12 +105,25 @@ export default function TodoList() {
       <h2>Todo List</h2>
       <AddTodo />
 
+      {/* {todoList.map(todo => (
+
+
+        <button onClick={e => {
+          e.stopPropagation();
+          deleteTodo(todo)
+        }
+        } > Clear Completed </button>
+      ))} */}
+
+      <button onClick={deleteTodo}>Clear Completed</button>
+
+
       {/* <AddFriend setTodoList={setTodoList} /> */}
-      <div className="wrap-list">
-        {todoList.map((item) => (
-          <Todo item={item} key={item.id} />
+      < div className="wrap-list" >
+        {todoList && todoList.map((item) => (
+          <Todo item={item} key={item.id} toggleItem={toggleItem} />
         ))}
       </div>
-    </div>
+    </div >
   );
 }

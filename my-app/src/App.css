@@ -59,3 +59,11 @@ a {
   padding: 6px;
   color: white;
 }
+
+
+/*COMPLETED ITEMS */
+.completed {
+
+  text-decoration: line-through;
+
+}
