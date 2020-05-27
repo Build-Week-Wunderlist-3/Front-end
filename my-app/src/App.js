@@ -1,4 +1,3 @@
-
 import React from "react";
 import "./App.css";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
@@ -13,16 +12,15 @@ function App() {
   return (
     <Router>
       <div className="App">
-        {/* <Switch> */}
-        <Route exact path="/" component={Home} />
-        {/* <Route path="/login" compoennt={Login} />
-          <Route path="/signup" component={SignUp} />*/}
-        <Route path="/updatetodo" component={UpdateTodo} />
-        <Route path="/todolist" component={TodoList} />
-        {/* </Switch> */}
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/login" component={Login} />
+          <Route path="/signup" component={SignUp} />
+          <Route path="/updatetodo" component={UpdateTodo} />
+          <Route path="/todolist" component={TodoList} />
+        </Switch>
       </div>
     </Router>
-
   );
 }
 
