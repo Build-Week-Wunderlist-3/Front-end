@@ -16,26 +16,26 @@ export default function TodoList() {
       .get("/api/tasks")
       .then((res) => {
         console.log("TodoList -res.data:", res.data);
-        // setTodoList(res.data);
+        setTodoList(res.data.task);
       })
       .catch((err) => console.log("ERROR TodoList", err));
   }, []);
 
   //Toggle class name "completed" in the Todo
-  const toggleItem = (id) => {
-    const newTodo = todoList.map((item) => {
-      if (item.id === id) {
-        return {
-          ...item,
-          completed: !item.completed,
-        };
-      } else {
-        return item;
-      }
-    });
+  // const toggleItem = (id) => {
+  //   const newTodo = todoList.map((item) => {
+  //     if (item.id === id) {
+  //       return {
+  //         ...item,
+  //         completed: !item.completed,
+  //       };
+  //     } else {
+  //       return item;
+  //     }
+  //   });
 
-    setTodoList(newTodo);
-  };
+  //   setTodoList(newTodo);
+  // };
 
   console.log(todoList);
 
@@ -47,25 +47,11 @@ export default function TodoList() {
         </li>
       </ul>
       <h2>Todo List</h2>
-      <AddTodo />
-
-      {/* {todoList.map(todo => (
-
-
-        <button onClick={e => {
-          e.stopPropagation();
-          deleteTodo(todo)
-        }
-        } > Clear Completed </button>
-      // ))} */}
-
-      {/* <button onClick={clearCompleted}>Clear Completed</button> */}
+      <AddTodo setTodoList={setTodoList} />
 
       <div className="wrap-list">
-        {todoList &&
-          todoList.map((item) => (
-            <Todo item={item} key={item.id} toggleItem={toggleItem} />
-          ))}
+        {todoList.length > 0 &&
+          todoList.map((item) => <Todo item={item} key={item.id} />)}
       </div>
     </div>
   );
