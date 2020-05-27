@@ -9,9 +9,12 @@ const StyledContainer = styled.div`
   border: 1px solid rgb(210, 210, 210);
   box-shadow: 0px 1px 6px -2px rgb(128, 127, 127);
   border-radius: 8px;
-  margin: 16px auto;
-  padding: 16px 8px 12px 16px;
+  margin: 4% auto;
+  /* padding: 16px 8px 12px 16px; */
+  padding: 2% 1% 2% 1%; 
+
   width: 20%;
+  min-width: 200px; 
 
   display: flex;
   flex-direction: column;
@@ -21,26 +24,24 @@ const StyledContainer = styled.div`
     display: flex;
     flex-direction: column;
   }
-  div.already {
-    font-size: 12px;
-    margin-top: 2%;
-  }
-  div.already p {
-    margin: 0;
-  }
+  div.extraText {
+        font-size: 12px;
+        margin: 6% 0 4% 0;
+        display: flex;
+        justify-content: center; 
+        flex-wrap: wrap; 
+    }
 
-  div.signUpLogin {
-    display: flex;
-    justify-content: center;
-  }
-  div.signUpLogin p {
-    margin: 0;
-  }
+  div.extraText p {
+        margin: auto 0;
+    }
+
 `;
 
 const initialFormValues = {
   email: "",
   password: "",
+  passwordConfirmation: "",
 };
 
 const initialFormErrors = {
@@ -98,67 +99,57 @@ function SignUp() {
     });
   }, [formValues]);
 
-  return (
-    <StyledContainer>
-      <ul>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        <li>
-          <Link to="/login">Login</Link>
-        </li>
-      </ul>
-      <div className="form-group inputs">
-        <h4>Sign Up</h4>
-        <div>
-          <input
-            value={formValues.email}
-            onChange={onInputChange}
-            placeholder="Email"
-            name="email"
-            type="email"
-          />
-          {/* <label>Username:
-                    <input
-                        value={values.username}
-                        onChange={onInputChange}
-                        name='username'
-                        type='text'
-                    />
-                </label> */}
-          <input
-            value={formValues.password}
-            onChange={onInputChange}
-            placeholder="Password"
-            name="password"
-            type="password"
-          />
-          <input
-            value={formValues.passwordConfirmation}
-            onChange={onInputChange}
-            placeholder="Confirm Password"
-            name="passwordConfirmation"
-            type="password"
-          />
-        </div>
-        <div className="already">
-          <p>Already have an account?</p>
-          <Link className="signup-link" to="/login">
-            Log In
-          </Link>
-        </div>
-      </div>
-      <div className="form-group submit">
-        <div className="errors">
-          <div>{formErrors.email}</div>
-          <div>{formErrors.password}</div>
-          <div>{formErrors.passwordConfirmation}</div>
-        </div>
-        <button disabled={disabledBtn} onSubmit={handleSubmit}>
-          submit
-        </button>
-      </div>
-    </StyledContainer>
+    return (
+        <form onSubmit={handleSubmit}>
+            <ul>
+                <li><Link to="/">Home</Link></li>
+                <li><Link to="/login">Login</Link></li>
+            </ul>
+            <StyledContainer>
+                <div className="form-group inputs">
+                    <h4>Sign Up</h4>
+                    <div>
+                        <input
+                            value={formValues.email}
+                            onChange={onInputChange}
+                            placeholder="Email"
+                            name="email"
+                            type="email"
+                        />
+                        <input
+                            value={formValues.password}
+                            onChange={onInputChange}
+                            placeholder="Password"
+                            name="password"
+                            type="password"
+                        />
+                        <input
+                            value={formValues.passwordConfirmation}
+                            onChange={onInputChange}
+                            placeholder="Confirm Password"
+                            name="passwordConfirmation"
+                            type="password"
+                        />
+                    </div>
+                </div>
+                <div className="form-group submit">
+                    <div className="extraText">
+                        <p>Already have an account?</p>
+                        <Link className="extraText-link" to="/login">
+                            Log In
+                        </Link>
+                    </div>
+                    <button disabled={disabledBtn}>
+                        Submit
+                    </button>
+                    <div className="errors">
+                        <div>{formErrors.email}</div>
+                        <div>{formErrors.password}</div>
+                        <div>{formErrors.passwordConfirmation}</div>
+                    </div>
+                </div>
+            </StyledContainer>
+        </form>
   );
 }
 
