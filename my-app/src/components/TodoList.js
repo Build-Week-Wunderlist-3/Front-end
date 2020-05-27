@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 // import {axiosWithAuth} from "../utils/axiosWithAuth"
 import { Link } from "react-router-dom";
-import axios from 'axios'
+import axios from "axios";
+import { axiosWithAuth } from "../utils/axiosWithAuth";
 
 //components
 import Todo from "./Todo";
@@ -28,74 +29,51 @@ const data = [
 export default function TodoList() {
   const [todoList, setTodoList] = useState(data);
 
-
-=======
+  //get the data from the API
   useEffect(() => {
-    axios
-      .get("https://bw-wunderlist-3.herokuapp.com/api/tasks")
+    axiosWithAuth()
+      .get("/api/tasks")
       .then((res) => {
         console.log("TodoList -res.data:", res.data);
-        setTodoList(res.data);
+        // setTodoList(res.data);
       })
       .catch((err) => console.log("ERROR TodoList", err));
   }, []);
 
-
-  //   const deleteTodo= (id) => {
-  //     axiosWithAuth()
-  //       .delete(`API-DELETE`)
-  //       .then((res) => {
-  //         console.log("DELETE-RES:", res);
-  //         setFriendList(res.data);
-  //         //  props.history.push("/protected")
-  //       })
-  //       .catch((err) => console.log("ERROR- DELETE:", err));
-  //   };
-
-
-  const toggleItem = id => {
-
-    const newTodo = todoList.map(item => {
+  //Toggle class name "completed" in the Todo
+  const toggleItem = (id) => {
+    const newTodo = todoList.map((item) => {
       if (item.id === id) {
         return {
           ...item,
-          completed: !item.completed
+          completed: !item.completed,
         };
       } else {
         return item;
       }
+    });
 
-    })
-
-    setTodoList(newTodo)
-
-  }
-
-  const deleteTodo = todo => {
-    // make a delete request to delete this color
-
-    axios
-      .delete(`https://bw-wunderlist-3.herokuapp.com/api/tasks/${todo.id}`)
-      .then((res) => {
-        console.log(res.data)
-
-        axios
-          .get(`https://bw-wunderlist-3.herokuapp.com/api/tasks/`)
-          .then(res => {
-            console.log(res.data)
-            setTodoList(res.data)
-
-
-          })
-
-
-      })
-
+    setTodoList(newTodo);
   };
 
+  //Delete the Todo
+  // const deleteTodo = (id) => {
+  //   axiosWithAuth()
+  //     .delete(`/api/tasks/${id}`)
+  //     .then((res) => {
+  //       console.log("DELETE-RES:", res);
+  //       setFriendList(res.data);
+  //     })
+  //     .catch((err) => console.log("ERROR- DELETE:", err));
+  // };
+  console.log(todoList);
 
-  console.log(todoList)
-
+  const clearCompleted = (e) => {
+    e.preventDefault();
+    const deleteAll = data.filter((item) => !item.completed);
+    setTodoList(deleteAll);
+    console.log("DELETE ALL", deleteAll);
+  };
 
   return (
     <div>
@@ -115,19 +93,18 @@ export default function TodoList() {
           deleteTodo(todo)
         }
         } > Clear Completed </button>
-      ))} */}
+      // ))} */}
 
-      <button onClick={deleteTodo}>Clear Completed</button>
-
+      <button onClick={clearCompleted}>Clear Completed</button>
 
       {/* <AddFriend setTodoList={setTodoList} /> */}
 
-      < div className="wrap-list" >
-        {todoList && todoList.map((item) => (
-          <Todo item={item} key={item.id} toggleItem={toggleItem} />
-
-        ))}
+      <div className="wrap-list">
+        {todoList &&
+          todoList.map((item) => (
+            <Todo item={item} key={item.id} toggleItem={toggleItem} />
+          ))}
       </div>
-    </div >
+    </div>
   );
 }
