@@ -6,6 +6,9 @@ export default function Home() {
     <div className="App">
       <ul>
         <li>
+          <Link to="/login">Log In</Link>
+        </li>
+        <li>
           <Link to="/todolist">Todo List</Link>
         </li>
       </ul>

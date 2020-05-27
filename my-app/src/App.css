@@ -38,7 +38,6 @@
   }
 }
 
-
 .errors {
   margin: 8px;
   font-size: 10px;
@@ -73,11 +72,11 @@ a {
   color: white;
 }
 
-
 /*COMPLETED ITEMS */
 .completed {
-
   text-decoration: line-through;
-
 }
 
+.signup-link {
+  color: #0e7c7b;
+}
