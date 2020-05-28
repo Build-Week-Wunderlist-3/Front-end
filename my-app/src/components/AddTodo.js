@@ -30,14 +30,26 @@ export default function AddTodo(props) {
 
         axiosWithAuth()
             .post("api/tasks", task)
+
             .then((res) => {
-                console.log(res);
-                props.setTodoList(res.data.newTask.task);
-                setTask(initialTask);
+                console.log(res.data)
+                setTask({ ...props.todoList, initialTask });
+
+                axiosWithAuth()
+                    .get(`api/tasks`)
+                    .then((res) => {
+                        console.log('add', res);
+                        props.setTodoList(res.data.task);
+
+                    })
+
+
+                    .catch((err) => {
+                        console.log("ERROR ADDTODO:", err);
+                    });
+
             })
-            .catch((err) => {
-                console.log("ERROR ADDTODO:", err);
-            });
+
     };
 
     return (

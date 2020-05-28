@@ -68,7 +68,7 @@ export default function TodoList() {
         </li>
       </ul>
       <h2>Todo List</h2>
-      <AddTodo setTodoList={setTodoList} />
+      <AddTodo setTodoList={setTodoList} todoList={todoList} />
 
 
       <button onClick={deleteItem}>Clear All</button>
