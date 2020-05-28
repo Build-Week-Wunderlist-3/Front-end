@@ -1,7 +1,11 @@
 // dependency imports
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
+
+
+import { TodoContext } from '../contexts/TodoContext'
+
 const initialTask = {
   task: "",
   description: "",
@@ -9,7 +13,10 @@ const initialTask = {
   completed: false,
   user_id: "",
 };
-export default function AddTodo(props) {
+export default function AddTodo() {
+
+  const { setTodoList, todoList } = useContext(TodoContext);
+
   const { push } = useHistory();
   const [task, setTask] = useState(initialTask);
   const [item, setItem] = useState(initialTask);
@@ -28,12 +35,12 @@ export default function AddTodo(props) {
       .post("/api/tasks", task)
       .then((res) => {
         console.log(res.data);
-        setTask({ ...props.todoList, initialTask });
+        setTask({ ...todoList, initialTask });
         axiosWithAuth()
           .get(`api/tasks`)
           .then((res) => {
             console.log("add", res);
-            props.setTodoList(res.data.task);
+            setTodoList(res.data.task);
           })
           .catch((err) => {
             console.log("ERROR ADDTODO:", err);
