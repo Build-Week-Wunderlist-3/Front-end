@@ -80,3 +80,36 @@ a {
 .signup-link {
   color: #0e7c7b;
 }
+
+.todoRow{
+
+  display: flex;
+  justify-content: space-around;
+  width: 15%;
+  margin: 0 auto;
+  align-items: center;
+
+ 
+}
+
+
+.edit-btn{
+
+  height: 20px;
+  margin-right: 10%;
+
+ 
+}
+
+.delete-btn{
+
+  height: 20px;
+  margin-right: 10%;
+
+ 
+}
+
+.buttons{
+
+  width: 50%;
+}

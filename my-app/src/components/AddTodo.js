@@ -15,15 +15,18 @@ export default function AddTodo(props) {
     const { push } = useHistory();
 
     const [task, setTask] = useState(initialTask);
+    const [item, setItem] = useState(initialTask);
     //const [formDisabled, setFormDisabled] = useState(true)
 
     const handleChanges = (e) => {
+        e.preventDefault();
         const value = e.target.value;
         setTask({
             ...task,
             [e.target.name]: value,
         });
     };
+
 
     const newTodo = (e) => {
         e.preventDefault();
@@ -52,10 +55,18 @@ export default function AddTodo(props) {
 
     };
 
+
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+    }
+
+
     return (
         <div>
             <h2>Add New To-do</h2>
-            <form onSubmit={newTodo}>
+            <form onSubmit={handleSubmit}>
                 <label>
                     <input
                         type="text"
@@ -66,7 +77,7 @@ export default function AddTodo(props) {
                     />
                 </label>
 
-                <button>+ Add</button>
+                <button onClick={newTodo}>+ Add</button>
             </form>
         </div>
     );

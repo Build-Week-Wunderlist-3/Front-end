@@ -8,6 +8,9 @@ import { useParams, useHistory } from "react-router-dom";
 import Todo from "./Todo";
 import AddTodo from "../components/AddTodo";
 
+
+
+
 export default function TodoList() {
   const [todoList, setTodoList] = useState([]);
 
@@ -43,11 +46,11 @@ export default function TodoList() {
   console.log('test', todoList);
 
 
-  const deleteItem = (item) => {
+  const deleteItem = (id) => {
 
     axiosWithAuth()
 
-      .delete(`api/tasks/${item.id}`)
+      .delete(`api/tasks/${id}`)
       .then(res => {
         console.log(res.data)
       })
@@ -70,13 +73,10 @@ export default function TodoList() {
       <h2>Todo List</h2>
       <AddTodo setTodoList={setTodoList} todoList={todoList} />
 
-
-      <button onClick={deleteItem}>Clear All</button>
-
       <div className="wrap-list">
         {todoList.length > 0 &&
           todoList.map((item) => (
-            <Todo item={item} key={item.id} toggleItem={toggleItem} />
+            <Todo item={item} key={item.id} toggleItem={toggleItem} deleteItem={deleteItem} />
           ))}
       </div>
     </div>
