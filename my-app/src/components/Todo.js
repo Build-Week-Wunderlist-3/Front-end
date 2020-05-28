@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useContext } from 'react';
 import { useHistory } from "react-router-dom";
 import "../App.css";
 
-export default function Todo({ item, toggleItem, deleteItem }) {
+import { TodoContext } from '../contexts/TodoContext'
+
+export default function Todo({ item }) {
+
+  const { toggleItem, deleteItem } = useContext(TodoContext);
+
   const { push } = useHistory();
   return (
     <div className="todo-wrap">

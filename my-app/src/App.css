@@ -1,6 +1,7 @@
 .App {
   text-align: center;
   font-family: "Poppins", sans-serif;
+  
 }
 
 .errors {
@@ -50,7 +51,7 @@ a {
   background-repeat: no-repeat;
   background-color: #cccccc;
   background-size: cover;
-  padding-bottom: 30%;
+  background-attachment: fixed;
 }
 
 input {
@@ -94,6 +95,7 @@ input {
   background-repeat: no-repeat;
   background-color: #cccccc;
   background-size: cover;
+  padding-bottom: 20%;
 }
 
 .add-form {

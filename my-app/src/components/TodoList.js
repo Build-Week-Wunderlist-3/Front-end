@@ -7,6 +7,11 @@ import { axiosWithAuth } from "../utils/axiosWithAuth";
 import Todo from "./Todo";
 import AddTodo from "../components/AddTodo";
 
+//
+
+//
+import { TodoContext } from '../contexts/TodoContext'
+
 export default function TodoList() {
   const [todoList, setTodoList] = useState([]);
   // const { id } = useParams();
@@ -55,28 +60,32 @@ export default function TodoList() {
   // console.log("todoList:", todoList);
 
   return (
-    <div>
-      <ul>
-        <li>
-          <Link to="/">Log Out</Link>
-        </li>
-      </ul>
-      <div className="todolist-wrap">
-        <h2>Todo List</h2>
-        <AddTodo setTodoList={setTodoList} deleteItem={deleteItem} />
 
-        <div className="wrap-list">
-          {todoList.length > 0 &&
-            todoList.map((item) => (
-              <Todo
-                item={item}
-                key={item.id}
-                toggleItem={toggleItem}
-                deleteItem={deleteItem}
-              />
-            ))}
+    <div>
+      <TodoContext.Provider value={{ setTodoList, deleteItem, todoList, toggleItem }}>
+        <ul>
+          <li>
+            <Link to="/">Log Out</Link>
+          </li>
+        </ul>
+        <div className="todolist-wrap">
+          <h2>Todo List</h2>
+          <AddTodo />
+
+          <div className="wrap-list">
+            {todoList.length > 0 &&
+              todoList.map((item) => (
+                <Todo
+                  item={item}
+                  key={item.id}
+
+                />
+              ))}
+          </div>
+
         </div>
-      </div>
+      </TodoContext.Provider>
     </div>
+
   );
 }
