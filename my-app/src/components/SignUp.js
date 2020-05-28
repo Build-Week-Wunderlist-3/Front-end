@@ -12,11 +12,11 @@ const StyledContainer = styled.div`
   border-radius: 8px;
   margin: 4% auto;
   /* padding: 16px 8px 12px 16px; */
-  padding: 2% 1% 2% 1%; 
-
+  padding: 2% 1% 2% 1%;
+  margin-top: 15%;
   width: 20%;
-  min-width: 200px; 
-
+  min-width: 200px;
+  background-color: rgba(255, 255, 255, 0.5);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -26,17 +26,16 @@ const StyledContainer = styled.div`
     flex-direction: column;
   }
   div.extraText {
-        font-size: 12px;
-        margin: 6% 0 4% 0;
-        display: flex;
-        justify-content: center; 
-        flex-wrap: wrap; 
-    }
+    font-size: 12px;
+    margin: 6% 0 4% 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
 
   div.extraText p {
-        margin: auto 0;
-    }
-
+    margin: auto 0;
+  }
 `;
 
 const initialFormValues = {
@@ -104,59 +103,56 @@ function SignUp() {
     });
   }, [formValues]);
 
-
-    return (
-        <form onSubmit={handleSubmit}>
-            <ul>
-                <li><Link to="/">Home</Link></li>
-                <li><Link to="/login">Login</Link></li>
-            </ul>
-            <StyledContainer>
-                <div className="form-group inputs">
-                    <h4>Sign Up</h4>
-                    <div>
-                        <input
-                            value={formValues.email}
-                            onChange={onInputChange}
-                            placeholder="Email"
-                            name="email"
-                            type="email"
-                        />
-                        <input
-                            value={formValues.password}
-                            onChange={onInputChange}
-                            placeholder="Password"
-                            name="password"
-                            type="password"
-                        />
-                        <input
+  return (
+    <form className="form" onSubmit={handleSubmit}>
+      <ul>
+        <li>
+          <Link to="/">Home</Link>
+        </li>
+      </ul>
+      <StyledContainer>
+        <div className="form-group inputs">
+          <h4>Sign Up</h4>
+          <div>
+            <input
+              value={formValues.email}
+              onChange={onInputChange}
+              placeholder="Email"
+              name="email"
+              type="email"
+            />
+            <input
+              value={formValues.password}
+              onChange={onInputChange}
+              placeholder="Password"
+              name="password"
+              type="password"
+            />
+            {/* <input
                             value={formValues.passwordConfirmation}
                             onChange={onInputChange}
                             placeholder="Confirm Password"
                             name="passwordConfirmation"
                             type="password"
-                        />
-                    </div>
-                </div>
-                <div className="form-group submit">
-                    <div className="extraText">
-                        <p>Already have an account?</p>
-                        <Link className="extraText-link" to="/login">
-                            Log In
-                        </Link>
-                    </div>
-                    <button disabled={disabledBtn}>
-                        Submit
-                    </button>
-                    <div className="errors">
-                        <div>{formErrors.email}</div>
-                        <div>{formErrors.password}</div>
-                        <div>{formErrors.passwordConfirmation}</div>
-                    </div>
-                </div>
-            </StyledContainer>
-        </form>
-
+                        /> */}
+          </div>
+        </div>
+        <div className="form-group submit">
+          <div className="extraText">
+            <p>Already have an account?</p>
+            <Link className="extraText-link" to="/login">
+              Log In
+            </Link>
+          </div>
+          <button disabled={disabledBtn}>Submit</button>
+          <div className="errors">
+            <div>{formErrors.email}</div>
+            <div>{formErrors.password}</div>
+            <div>{formErrors.passwordConfirmation}</div>
+          </div>
+        </div>
+      </StyledContainer>
+    </form>
   );
 }
 

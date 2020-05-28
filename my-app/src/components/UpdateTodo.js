@@ -14,6 +14,16 @@ export default function UpdateTodo() {
   //set State
   const [item, setItem] = useState(initialState);
 
+  useEffect(() => {
+    axiosWithAuth()
+      .get(`/api/tasks/${id}`)
+      .then((res) => {
+        console.log("Update- RES:", res);
+        // setItem(res.data);
+      })
+      .catch((err) => console.log("Update-GET-Error:", err));
+  }, [id]);
+
   const handleChange = (ev) => {
     ev.persist();
     setItem({
@@ -22,18 +32,18 @@ export default function UpdateTodo() {
     });
   };
 
-  //   const handleSubmit = (e) => {
-  //     e.preventDefault();
-  //     //make a PUT request to edit the item
-  //     axiosWithAuth()
-  //       .put(`API`, item)
-  //       .then((res) => {
-  //         // console.log("handleSubmit-RES:", res);
-  //         setItem(res.data);
-  //         push(`/todolist`);
-  //       })
-  //       .catch((err) => console.log("HandleSubmit error:", err));
-  //   };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    //make a PUT request to edit the item
+    axiosWithAuth()
+      .put(`/api/tasks/${id}`, item)
+      .then((res) => {
+        console.log("UPDATE-PUT-handleSubmit-RES:", res);
+        // setItem(res.data);
+        // push(`/todolist`);
+      })
+      .catch((err) => console.log("UPDATE- PUT- handleSubmit error:", err));
+  };
 
   return (
     <div className="update-page">
@@ -42,7 +52,7 @@ export default function UpdateTodo() {
           <Link to="/">Log Out</Link>
         </li>
       </ul>
-      <form className="updateForm">
+      <form onSubmit={handleSubmit} className="updateForm">
         <h3>Update your Todo</h3>
         <label htmlFor="todo" className="label">
           Todo:

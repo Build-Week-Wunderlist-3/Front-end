@@ -1,9 +1,8 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function Home() {
   return (
-
     <div className="App">
       <ul>
         <li>
@@ -15,6 +14,5 @@ export default function Home() {
       </ul>
       <h3>Welcome to your Todo List!</h3>
     </div>
-
   );
 }

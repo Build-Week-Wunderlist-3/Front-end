@@ -1,6 +1,5 @@
 // dependency imports
-import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import React, { useState } from "react";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 
 const initialTask = {
@@ -11,8 +10,6 @@ const initialTask = {
 };
 
 export default function AddTodo(props) {
-  const { push } = useHistory();
-
   const [task, setTask] = useState(initialTask);
   //const [formDisabled, setFormDisabled] = useState(true)
 

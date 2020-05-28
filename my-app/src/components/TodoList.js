@@ -15,7 +15,7 @@ export default function TodoList() {
     axiosWithAuth()
       .get("/api/tasks")
       .then((res) => {
-        console.log("TodoList -res.data:", res.data);
+        // console.log("TodoList -res.data:", res.data);
         setTodoList(res.data.task);
       })
       .catch((err) => console.log("ERROR TodoList", err));
@@ -33,7 +33,6 @@ export default function TodoList() {
         return item;
       }
     });
-
     setTodoList(newTodo);
   };
 
