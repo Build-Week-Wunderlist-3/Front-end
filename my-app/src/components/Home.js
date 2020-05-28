@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export default function Home() {
   return (
-    <div className="App">
+    <div className="home-page">
       <ul>
         <li>
           <Link to="/login">Log In</Link>
@@ -12,7 +12,11 @@ export default function Home() {
           <Link to="/todolist">Todo List</Link>
         </li>
       </ul>
-      <h3>Welcome to your Todo List!</h3>
+      <div className="home-wrap">
+        <div className="home-container">
+          <h2>Welcome to your Todo List!</h2>
+        </div>
+      </div>
     </div>
   );
 }

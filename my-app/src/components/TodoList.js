@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-// import {axiosWithAuth} from "../utils/axiosWithAuth"
 import { Link } from "react-router-dom";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
-import { useParams, useHistory } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 
 //components
 import Todo from "./Todo";
@@ -10,16 +9,14 @@ import AddTodo from "../components/AddTodo";
 
 export default function TodoList() {
   const [todoList, setTodoList] = useState([]);
-
-
+  // const { id } = useParams();
 
   //get the data from the API
   useEffect(() => {
     axiosWithAuth()
       .get("/api/tasks")
       .then((res) => {
-
-        console.log("TodoList", res.data.task);
+        // console.log("GET REQUEST", res.data.task);
 
         setTodoList(res.data.task);
       })
@@ -41,25 +38,21 @@ export default function TodoList() {
     setTodoList(newTodo);
   };
 
-  console.log('test', todoList);
-
-
-  const deleteItem = (item) => {
-
+  // DELETE ITEM---------------------------------
+  const deleteItem = (id) => {
     axiosWithAuth()
-
-      .delete(`api/tasks/${item.id}`)
-      .then(res => {
-        console.log(res.data)
+      .delete(`/api/task/${id}`)
+      .then((res) => {
+        console.log("DELETE - RES.DATA:", res.data);
+        setTodoList(todoList.filter((todo) => todo.id !== id));
       })
 
-      .catch(err => {
-        console.log(err)
-      })
-  }
-
-
-
+      .catch((err) => {
+        console.log("DELETE ERROR:", { err });
+        console.log("todoList after DELETE:", todoList);
+      });
+  };
+  // console.log("todoList:", todoList);
 
   return (
     <div>
@@ -68,17 +61,21 @@ export default function TodoList() {
           <Link to="/">Log Out</Link>
         </li>
       </ul>
-      <h2>Todo List</h2>
-      <AddTodo setTodoList={setTodoList} />
+      <div className="todolist-wrap">
+        <h2>Todo List</h2>
+        <AddTodo setTodoList={setTodoList} deleteItem={deleteItem} />
 
-
-      <button onClick={deleteItem}>Clear All</button>
-
-      <div className="wrap-list">
-        {todoList.length > 0 &&
-          todoList.map((item) => (
-            <Todo item={item} key={item.id} toggleItem={toggleItem} />
-          ))}
+        <div className="wrap-list">
+          {todoList.length > 0 &&
+            todoList.map((item) => (
+              <Todo
+                item={item}
+                key={item.id}
+                toggleItem={toggleItem}
+                deleteItem={deleteItem}
+              />
+            ))}
+        </div>
       </div>
     </div>
   );
