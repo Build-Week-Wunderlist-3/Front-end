@@ -7,34 +7,34 @@ import { axiosWithAuth } from "../utils/axiosWithAuth";
 import { useHistory } from "react-router-dom";
 
 const StyledContainer = styled.div`
-    border: 1px solid rgb(210, 210, 210);
-    box-shadow: 0px 1px 6px -2px rgb(128, 127, 127);
-    border-radius: 8px;
-    margin: 4% auto;
-    /* padding: 16px 8px 12px 16px; */
-    padding: 2% 1% 2% 1%; 
+  border: 1px solid rgb(210, 210, 210);
+  box-shadow: 0px 1px 6px -2px rgb(128, 127, 127);
+  border-radius: 8px;
+  margin: 4% auto;
+  /* padding: 16px 8px 12px 16px; */
+  padding: 2% 1% 2% 1%;
+  background-color: rgba(255, 255, 255, 0.5);
+  width: 20%;
+  min-width: 200px;
+  margin-top: 15%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
-    width: 20%;
-    min-width: 200px; 
-
+  div.inputs {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-
-    div.inputs {
-        display: flex;
-        flex-direction: column;
-    }
-    div.extraText {
-        font-size: 12px;
-        margin: 6% 0 4% 0;
-        display: flex;
-        justify-content: center; 
-        flex-wrap: wrap; 
-    }
-    div.extraText p {
-        margin: auto 0;
-    }
+  }
+  div.extraText {
+    font-size: 12px;
+    margin: 6% 0 4% 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  div.extraText p {
+    margin: auto 0;
+  }
 `;
 
 const initialFormValues = {
@@ -98,6 +98,7 @@ function Login() {
         loginFormSchema.isValid(formValues).then((valid) => {
             setDisabledBtn(!valid);
         });
+
     }, [formValues]);
 
     return (
