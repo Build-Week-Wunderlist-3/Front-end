@@ -38,111 +38,132 @@ const StyledContainer = styled.div`
 `;
 
 const initialFormValues = {
-  email: "",
-  password: "",
+    email: "",
+    password: "",
 };
 
 const initialFormErrors = {
-  email: "",
-  password: "",
+    email: "",
+    password: "",
 };
 
 const initialDisabledBtn = true;
 
 function Login() {
-  const [formValues, setFormValues] = useState(initialFormValues);
-  const [formErrors, setFormErrors] = useState(initialFormErrors);
-  const [disabledBtn, setDisabledBtn] = useState(initialDisabledBtn);
+    const [formValues, setFormValues] = useState(initialFormValues);
+    const [formErrors, setFormErrors] = useState(initialFormErrors);
+    const [disabledBtn, setDisabledBtn] = useState(initialDisabledBtn);
 
-  const onInputChange = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
+    const onInputChange = (e) => {
+        const name = e.target.name;
+        const value = e.target.value;
 
-    yup
-      .reach(loginFormSchema, name)
-      .validate(value)
-      .then((valid) => {
-        setFormErrors({
-          ...formErrors,
-          [name]: "",
+        yup
+            .reach(loginFormSchema, name)
+            .validate(value)
+            .then((valid) => {
+                setFormErrors({
+                    ...formErrors,
+                    [name]: "",
+                });
+            })
+            .catch((err) => {
+                setFormErrors({
+                    ...formErrors,
+                    [name]: err.errors[0],
+                });
+            });
+        setFormValues({
+            ...formValues,
+            [name]: value,
         });
-      })
-      .catch((err) => {
-        setFormErrors({
-          ...formErrors,
-          [name]: err.errors[0],
+    };
+
+    const { push } = useHistory();
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        axiosWithAuth()
+            .post("api/login", formValues)
+            .then((res) => {
+                console.log(res);
+                localStorage.setItem("token", res.data.token);
+                push("/todolist");
+            })
+            .catch((err) => console.log(err));
+    };
+
+    useEffect(() => {
+        loginFormSchema.isValid(formValues).then((valid) => {
+            setDisabledBtn(!valid);
         });
-      });
-    setFormValues({
-      ...formValues,
-      [name]: value,
-    });
-  };
 
-  const { push } = useHistory();
+    }, [formValues]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+    return (
+        <form onSubmit={handleSubmit}>
 
-    axiosWithAuth()
-      .post("api/login", formValues)
-      .then((res) => {
-        console.log(res);
-        localStorage.setItem("token", res.data.token);
-        push("/todolist");
-      })
-      .catch((err) => console.log(err));
-  };
+            <ul>
+                <li><Link to="/">Home</Link></li>
+                <li><Link to="/signup">Sign Up</Link></li>
+            </ul>
+            <StyledContainer>
 
-  useEffect(() => {
-    loginFormSchema.isValid(formValues).then((valid) => {
-      setDisabledBtn(!valid);
-    });
-  }, [formValues]);
+                <div className="form-group inputs">
+                    <h4>Login</h4>
+                    <div>
+                        <input
+                            value={formValues.email}
+                            onChange={onInputChange}
+                            placeholder="Email"
+                            name="email"
+                            type="email"
+                        />
+                        <input
+                            value={formValues.password}
+                            onChange={onInputChange}
+                            placeholder="Password"
+                            name="password"
+                            type="password"
+                        />
+                    </div>
+                </div>
+                <div className="form-group submit">
 
-  return (
-    <form className="form" onSubmit={handleSubmit}>
-      <ul>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-      </ul>
-      <StyledContainer>
-        <div className="form-group inputs">
-          <h4>Login</h4>
-          <div>
-            <input
-              value={formValues.email}
-              onChange={onInputChange}
-              placeholder="Email"
-              name="email"
-              type="email"
-            />
-            <input
-              value={formValues.password}
-              onChange={onInputChange}
-              placeholder="Password"
-              name="password"
-              type="password"
-            />
-          </div>
-        </div>
-        <div className="form-group submit">
-          <div className="extraText">
-            <p>Need an account?</p>
-            <Link className="extraText-link" to="/signup">
-              Sign Up
-            </Link>
-          </div>
-          <button disabled={disabledBtn}>Submit</button>
-          <div className="errors">
-            <div>{formErrors.email}</div>
-            <div>{formErrors.password}</div>
-          </div>
-        </div>
-      </StyledContainer>
-    </form>
+                    <div className="extraText">
+                        <p>Need an account?</p>
+                        <Link className="extraText-link" to="/signup">
+                            Sign Up
+                        </Link>
+                    </div>
+                    <button disabled={disabledBtn}>
+                        Submit
+                    </button>
+
+                    <div className="errors">
+                        <div>{formErrors.email}</div>
+                        <div>{formErrors.password}</div>
+                    </div>
+
+                    <button disabled={disabledBtn} onSubmit={handleSubmit}>
+                        submit
+          </button>
+          Still don't have an account?
+          <Link className="signup-link" to="/signup">
+                        Sign Up
+          </Link>
+                </div>
+            </StyledContainer>
+        </form>
+    );
+
+                </div>
+            </StyledContainer>
+        </form>
+    
   );
+
 }
 
 export default Login;

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 // import {axiosWithAuth} from "../utils/axiosWithAuth"
 import { Link } from "react-router-dom";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
+import { useParams, useHistory } from "react-router-dom";
 
 //components
 import Todo from "./Todo";
@@ -10,12 +11,16 @@ import AddTodo from "../components/AddTodo";
 export default function TodoList() {
   const [todoList, setTodoList] = useState([]);
 
+
+
   //get the data from the API
   useEffect(() => {
     axiosWithAuth()
       .get("/api/tasks")
       .then((res) => {
-        // console.log("TodoList -res.data:", res.data);
+
+        console.log("TodoList", res.data.task);
+
         setTodoList(res.data.task);
       })
       .catch((err) => console.log("ERROR TodoList", err));
@@ -36,7 +41,25 @@ export default function TodoList() {
     setTodoList(newTodo);
   };
 
-  console.log(todoList);
+  console.log('test', todoList);
+
+
+  const deleteItem = (item) => {
+
+    axiosWithAuth()
+
+      .delete(`api/tasks/${item.id}`)
+      .then(res => {
+        console.log(res.data)
+      })
+
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
+
+
 
   return (
     <div>
@@ -47,6 +70,9 @@ export default function TodoList() {
       </ul>
       <h2>Todo List</h2>
       <AddTodo setTodoList={setTodoList} />
+
+
+      <button onClick={deleteItem}>Clear All</button>
 
       <div className="wrap-list">
         {todoList.length > 0 &&
