@@ -2,65 +2,65 @@ import React, { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 import { Link } from "react-router-dom";
-
 const initialState = {
-  name: "",
+  //id: '',
+  task: "",
+  // description: "",
+  // due_date: "",
+  // completed: false,
+  // user_id: ''
 };
-
-export default function UpdateTodo() {
+export default function UpdateTodo(props) {
   const { push } = useHistory();
   const { id } = useParams();
-
   //set State
   const [item, setItem] = useState(initialState);
-
   useEffect(() => {
     axiosWithAuth()
-      .get(`/api/tasks/${id}`)
+      .get(`/api/task/${id}`)
       .then((res) => {
-        console.log("Update- RES:", res);
-        // setItem(res.data);
+        console.log(res.data.task);
+        setItem(res.data.task);
       })
-      .catch((err) => console.log("Update-GET-Error:", err));
+      .catch((err) => console.log(err));
   }, [id]);
-
-  const handleChange = (ev) => {
-    ev.persist();
+  const handleChange = (e) => {
     setItem({
       ...item,
-      [ev.target.name]: ev.target.value,
+      [e.target.name]: e.target.value,
     });
   };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     //make a PUT request to edit the item
     axiosWithAuth()
       .put(`/api/tasks/${id}`, item)
       .then((res) => {
-        console.log("UPDATE-PUT-handleSubmit-RES:", res);
-        // setItem(res.data);
-        // push(`/todolist`);
+        console.log("handleSubmit-RES:", res);
+        setItem(initialState);
+        push(`/todolist`);
       })
-      .catch((err) => console.log("UPDATE- PUT- handleSubmit error:", err));
+      .catch((err) => console.log("HandleSubmit error:", err));
   };
-
   return (
     <div className="update-page">
       <ul>
         <li>
+          <Link to="/todolist">Todo list</Link>
+        </li>
+        <li>
           <Link to="/">Log Out</Link>
         </li>
       </ul>
-      <form onSubmit={handleSubmit} className="updateForm">
+      <form className="updateForm" onSubmit={handleSubmit}>
         <h3>Update your Todo</h3>
         <label htmlFor="todo" className="label">
           Todo:
         </label>
         <input
           type="text"
-          name="todo"
-          value={item.name}
+          name="task"
+          value={item.task}
           onChange={handleChange}
         />
         <button className="sbmt-btn" type="submit">

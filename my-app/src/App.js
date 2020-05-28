@@ -17,7 +17,7 @@ function App() {
           <Route path="/login" component={Login} />
           <Route path="/signup" component={SignUp} />
           <PrivateRoute exact path="/todolist" component={TodoList} />
-          <Route path="/updatetodo" component={UpdateTodo} />
+          <Route path="/updatetodo/:id" component={UpdateTodo} />
         </Switch>
       </div>
     </Router>

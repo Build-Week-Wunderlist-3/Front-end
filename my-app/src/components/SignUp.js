@@ -13,7 +13,7 @@ const StyledContainer = styled.div`
   margin: 4% auto;
   /* padding: 16px 8px 12px 16px; */
   padding: 2% 1% 2% 1%;
-  margin-top: 15%;
+  margin-top: 8%;
   width: 20%;
   min-width: 200px;
   background-color: rgba(255, 255, 255, 0.5);
