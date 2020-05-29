@@ -1,10 +1,9 @@
 // dependency imports
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 
-
-import { TodoContext } from '../contexts/TodoContext'
+import { TodoContext } from "../contexts/TodoContext";
 
 const initialTask = {
   task: "",
@@ -14,12 +13,10 @@ const initialTask = {
   user_id: "",
 };
 export default function AddTodo() {
-
   const { setTodoList, todoList } = useContext(TodoContext);
 
-  const { push } = useHistory();
   const [task, setTask] = useState(initialTask);
-  const [item, setItem] = useState(initialTask);
+
   //const [formDisabled, setFormDisabled] = useState(true)
   const handleChanges = (e) => {
     e.preventDefault();
