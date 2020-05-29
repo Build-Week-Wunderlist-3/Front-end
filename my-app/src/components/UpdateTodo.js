@@ -43,7 +43,7 @@ export default function UpdateTodo(props) {
       .catch((err) => console.log("HandleSubmit error:", err));
   };
   return (
-    <div className="update-page">
+    <div>
       <ul>
         <li>
           <Link to="/todolist">Todo list</Link>
@@ -52,21 +52,23 @@ export default function UpdateTodo(props) {
           <Link to="/">Log Out</Link>
         </li>
       </ul>
-      <form className="updateForm" onSubmit={handleSubmit}>
-        <h3>Update your Todo</h3>
-        <label htmlFor="todo" className="label">
-          Todo:
+      <div className="update-page">
+        <form className="updateForm" onSubmit={handleSubmit}>
+          <h3>Update your Todo</h3>
+          <label htmlFor="todo" className="label">
+            Todo:
         </label>
-        <input
-          type="text"
-          name="task"
-          value={item.task}
-          onChange={handleChange}
-        />
-        <button className="sbmt-btn" type="submit">
-          Submit
+          <input
+            type="text"
+            name="task"
+            value={item.task}
+            onChange={handleChange}
+          />
+          <button className="sbmt-btn" type="submit">
+            Submit
         </button>
-      </form>
+        </form>
+      </div>
     </div>
   );
 }
