@@ -41,13 +41,13 @@ const StyledContainer = styled.div`
 const initialFormValues = {
   email: "",
   password: "",
-  passwordConfirmation: "",
+
 };
 
 const initialFormErrors = {
   email: "",
   password: "",
-  passwordConfirmation: "",
+
 };
 
 const initialDisabledBtn = true;
@@ -91,7 +91,7 @@ function SignUp() {
       .post("api/register", formValues)
       .then((res) => {
         console.log(res);
-        localStorage.setItem("token", res.data.payload);
+        localStorage.setItem("token", res.data.token);
         push("/login");
       })
       .catch((err) => console.log(err));

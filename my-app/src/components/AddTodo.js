@@ -49,7 +49,6 @@ export default function AddTodo() {
   };
   return (
     <div>
-      <h2>Add New To-do</h2>
       <form onSubmit={handleSubmit}>
         <label>
           <input
@@ -60,7 +59,7 @@ export default function AddTodo() {
             value={task.task}
           />
         </label>
-        <button onClick={newTodo}>+ Add</button>
+        <button className='add-btn' onClick={newTodo}>+ Add</button>
       </form>
     </div>
   );
