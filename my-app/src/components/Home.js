@@ -6,7 +6,7 @@ export default function Home() {
     <div className="home-page">
       <ul>
         <li>
-          <a href="https://wunderlist3-ui.netlify.app/index.html">Learn More</a>
+          <a target="blank" href="https://wunderlist3-ui.netlify.app/index.html">Learn More</a>
         </li>
         <li>
           <a

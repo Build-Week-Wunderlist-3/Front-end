@@ -12,17 +12,18 @@ export default function Todo({ item }) {
   return (
     <div className="todo-wrap">
       <div className={`item${item.completed ? " completed" : ""}`}>
-        <h5 onClick={() => toggleItem(item.id)}>{item.task}</h5>
-        <button
-          className="edit-btn"
-          onClick={() => push(`/updatetodo/${item.id}`)}
-        >
-          Edit
-        </button>
-        <button className="delete-btn" onClick={() => deleteItem(item.id)}>
-          Delete
-        </button>
+        <h4 onClick={() => toggleItem(item.id)}>{item.task}</h4>
       </div>
+      <button
+        className="edit-btn"
+        onClick={() => push(`/updatetodo/${item.id}`)}
+      >
+        Edit
+        </button>
+      <button className="delete-btn" onClick={() => deleteItem(item.id)}>
+        Delete
+        </button>
+
     </div>
   );
 }

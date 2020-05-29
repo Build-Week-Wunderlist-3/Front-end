@@ -1,20 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
-// import { useParams } from "react-router-dom";
+
 
 //components
 import Todo from "./Todo";
 import AddTodo from "../components/AddTodo";
 
-//
 
-//
+//Context API
 import { TodoContext } from '../contexts/TodoContext'
 
 export default function TodoList() {
   const [todoList, setTodoList] = useState([]);
-  // const { id } = useParams();
+
 
   //get the data from the API
   useEffect(() => {
@@ -57,7 +56,7 @@ export default function TodoList() {
         console.log("todoList after DELETE:", todoList);
       });
   };
-  // console.log("todoList:", todoList);
+
 
   return (
 
@@ -69,7 +68,7 @@ export default function TodoList() {
           </li>
         </ul>
         <div className="todolist-wrap">
-          <h2>Todo List</h2>
+          <h1>My To-do List</h1>
           <AddTodo />
 
           <div className="wrap-list">
@@ -82,7 +81,6 @@ export default function TodoList() {
                 />
               ))}
           </div>
-
         </div>
       </TodoContext.Provider>
     </div>
